@@ -1,0 +1,22 @@
+\documentclass[11pt]{article}
+
+\input{../macros.tex}
+
+\begin{document}
+
+% Set background image
+\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{background.jpg}};
+
+\doortitle{PhD4 is \emph{\LaTeX{} template}}
+
+% There is also a \singlentry command
+\doublentry{1}{1}{Jack}{Walton}{example-image}
+\doublentry{2}{1}{Hadi}{Alshammari}{example-image}
+\doublentry{1}{2}{Liam}{Dobson}{example-image}
+\doublentry{2}{2}{Can}{Evirgen}{example-image}
+\doublentry{1}{3}{Laura}{Wadkin}{example-image}
+\doublentry{2}{3}{Alex}{Hindle}{example-image}
+\doublentry{1}{4}{Rathish}{Ratnasingam}{example-image}
+\doublentry{2}{4}{Jack}{Kennedy}{example-image}
+
+\end{document}
