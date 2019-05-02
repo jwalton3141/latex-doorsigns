@@ -1,3 +1,3 @@
 LaTeX is *not* the right tool to make a door sign...
 
-Compile with ```lualatex```. ```xetex``` probably works too.
+Compile twice to set background correctly.
