@@ -1,29 +1,41 @@
 \documentclass[11pt]{article}
 
+% Set size to that of door sign
 \usepackage[paperwidth=13.9cm, paperheight=11cm, top=0cm]{geometry}
-% Load MinionPro if installed
+
+% Load that sweet MinionPro font if installed
 \IfFileExists{MinionPro.sty}{%
-	\usepackage[mathlf,mathtabular,minionint]{MinionPro}
+	\usepackage{MinionPro}
 }
 
 \usepackage{tikz}
 \usepackage[pscoord]{eso-pic}
 
+% \placetextbox{proportion of width}{proportion of height}{text}
 \newcommand{\placetextbox}[3]{% 
-  \setbox0=\hbox{#3}
-  \AddToShipoutPictureFG*{%
-    \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][l]{#3}}}%
+    \setbox0=\hbox{#3}
+    \AddToShipoutPictureFG*{%
+        \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][l]{#3}}}%
   }
 }
 
+% \doortitle{room number}
 \newcommand{\doortitle}[1]{\centering \Huge #1}
 
-% \student{<column number (1 or 2)>}{<row number (1, 2, 3 or 4)>}{<name>}{<path to image>}
-\newcommand{\student}[4]{%
-	\placetextbox{\column{#1}}{\studentrow{#2}}{\hspace{0.7cm}\Large #3}
-	\placetextbox{\column{#1}}{\studentrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
+% \singlentry{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name}{path to image}
+\newcommand{\singlentry}[4]{%
+	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace{0.7cm}\huge #3}
+	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
 }
 
+% \doublentry{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+\newcommand{\doublentry}[5]{%
+        \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
+	\placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
+	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
+}
+
+% Column locations
 \newcommand{\column}[1]{%
 	\ifnum#1=1
 		0.095
@@ -33,7 +45,8 @@
 	\fi
 }
 
-\newcommand{\studentrow}[1]{%
+% `Middle' row locations
+\newcommand{\midrow}[1]{%
 	\ifnum#1=1
 		0.8
 	\fi
@@ -48,21 +61,58 @@
 	\fi
 }
 
+% Would be better to define as shift below \midrow
+% `Bottom' row locations
+\newcommand{\lowrow}[1]{%
+        \ifnum#1=1
+		0.775
+	\fi
+	\ifnum#1=2
+		0.575
+	\fi
+	\ifnum#1=3
+		0.375
+	\fi
+	\ifnum#1=4
+		0.175
+	\fi
+}
+
+% Would be better to define as shift above \midrow
+% `Upper' row locations
+\newcommand{\hirow}[1]{%
+        \ifnum#1=1
+		0.825
+	\fi
+	\ifnum#1=2
+		0.625
+	\fi
+	\ifnum#1=3
+		0.425
+	\fi
+	\ifnum#1=4
+		0.225
+	\fi
+}
+
+% No page numbers thanks
 \pagenumbering{gobble}
 
 \begin{document}
 
+% Set background image
 \tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{background.jpg}};
 
 \doortitle{PhD4 is \emph{\LaTeX{} template}}
 
-\student{1}{1}{J. Walton}{example-image}
-\student{2}{1}{H. Alshammari}{example-image}
-\student{1}{2}{L. Dobson}{example-image}
-\student{2}{2}{C. Evirgen}{example-image}
-\student{1}{3}{L. Wadkin}{example-image}
-\student{2}{3}{A. Hindle}{example-image}
-\student{1}{4}{R. Ratnasingam}{example-image}
-\student{2}{4}{J. Kennedy}{example-image}
+% There is also a \singlentry command
+\doublentry{1}{1}{Jack}{Walton}{example-image}
+\doublentry{2}{1}{Hadi}{Alshammari}{example-image}
+\doublentry{1}{2}{Liam}{Dobson}{example-image}
+\doublentry{2}{2}{Can}{Evirgen}{example-image}
+\doublentry{1}{3}{Laura}{Wadkin}{example-image}
+\doublentry{2}{3}{Alex}{Hindle}{example-image}
+\doublentry{1}{4}{Rathish}{Ratnasingam}{example-image}
+\doublentry{2}{4}{Jack}{Kennedy}{example-image}
 
 \end{document}
