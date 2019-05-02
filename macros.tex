@@ -33,6 +33,11 @@
 	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
 }
 
+% \background{opacity of background 0-1}{path to background}
+\newcommand{\background}[2]{%
+        \tikz[remember picture, overlay] \node[opacity=#1, inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth, height=\paperheight]{#2}};
+}
+
 % Column locations
 \newcommand{\column}[1]{%
 	\ifnum#1=1
