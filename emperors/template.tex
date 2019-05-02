@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+
+\usepackage[paperwidth=13.9cm, paperheight=11cm, top=0cm]{geometry}
+\usepackage{MinionPro}
+\usepackage{tikz}
+\usepackage[pscoord]{eso-pic}
+
+\newcommand{\placetextbox}[3]{% 
+  \setbox0=\hbox{#3}
+  \AddToShipoutPictureFG*{%
+    \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][l]{#3}}}%
+  }
+}
+
+\newcommand{\doortitle}[1]{\vspace{-0.6cm}\centering \Huge #1}
+
+% \doubleentry{<column number (1 or 2)>}{<row number (1, 2, 3 or 4)>}{<character name>}{<student name>}{<path to image>}
+\newcommand{\doubleentry}[5]{%
+	\placetextbox{\column{#1}}{\charrow{#2}}{\hspace{0.7cm}\huge #3}
+	\placetextbox{\column{#1}}{\studentrow{#2}}{\hspace{0.7cm}\normalsize #4}
+	\placetextbox{\column{#1}}{\imagerow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
+}
+
+\newcommand{\column}[1]{%
+	\ifnum#1=1
+		0.095
+	\fi
+	\ifnum#1=2
+		0.595
+	\fi
+}
+
+\newcommand{\charrow}[1]{%
+	\ifnum#1=1
+		0.825
+	\fi
+	\ifnum#1=2
+		0.625
+	\fi
+	\ifnum#1=3
+		0.425
+	\fi
+	\ifnum#1=4
+		0.225
+	\fi
+}
+
+\newcommand{\studentrow}[1]{%
+	\ifnum#1=1
+		0.775
+	\fi
+	\ifnum#1=2
+		0.575
+	\fi
+	\ifnum#1=3
+		0.375
+	\fi
+	\ifnum#1=4
+		0.175
+	\fi
+}
+
+\newcommand{\imagerow}[1]{%
+	\ifnum#1=1
+		0.8
+	\fi
+	\ifnum#1=2
+		0.6
+	\fi
+	\ifnum#1=3
+		0.4
+	\fi
+	\ifnum#1=4
+		0.2
+	\fi
+}
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{background.jpg}};
+
+\doortitle{PhD\thinspace\emph{IV} are the \emph{Roman~Empire}}
+\doubleentry{1}{1}{Marcus Aurelius}{J. Walton}{aurelias.jpg}
+\doubleentry{2}{1}{Claudius}{H. Alshammari}{claudius.jpg}
+\doubleentry{1}{2}{Nero}{L. Dobson}{nero.jpeg}
+\doubleentry{2}{2}{Didus Julianus}{C. Evirgen}{julianus.jpg}
+\doubleentry{1}{3}{Julia Domna}{L. Wadkin}{julia.jpg}
+\doubleentry{2}{3}{Hadrian}{A. Hindle}{hadrian.jpg}
+\doubleentry{1}{4}{Vespasian}{R. Ratnasingam}{vespasian.jpg}
+\doubleentry{2}{4}{Tiberius}{J. Kennedy}{tiberius.jpg}
+
+\end{document}
