@@ -1,1 +1,3 @@
-Don't use LaTex to do this kind of thing. It's stupid.
+LaTeX is *not* the right tool to make a door sign...
+
+Compile with ```lualatex```. ```xetex``` probably works too.
