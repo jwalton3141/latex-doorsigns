@@ -8,6 +8,7 @@
 
 \usepackage{tikz}
 \usepackage[pscoord]{eso-pic}
+\usepackage{xfp}
 
 % \placetextbox{proportion of width}{proportion of height}{text}
 \newcommand{\placetextbox}[3]{% 
@@ -28,7 +29,7 @@
 
 % \doublentry{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
 \newcommand{\doublentry}[5]{%
-        \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
+    \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
 	\placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
 	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
 }
@@ -64,38 +65,14 @@
 	\fi
 }
 
-% Would be better to define as shift below \midrow
 % `Bottom' row locations
 \newcommand{\lowrow}[1]{%
-        \ifnum#1=1
-		0.775
-	\fi
-	\ifnum#1=2
-		0.575
-	\fi
-	\ifnum#1=3
-		0.375
-	\fi
-	\ifnum#1=4
-		0.175
-	\fi
+    \fpeval{\midrow{#1}-0.025}
 }
 
-% Would be better to define as shift above \midrow
 % `Upper' row locations
 \newcommand{\hirow}[1]{%
-        \ifnum#1=1
-		0.825
-	\fi
-	\ifnum#1=2
-		0.625
-	\fi
-	\ifnum#1=3
-		0.425
-	\fi
-	\ifnum#1=4
-		0.225
-	\fi
+    \fpeval{\midrow{#1}+0.025}
 }
 
 % No page numbers thanks
