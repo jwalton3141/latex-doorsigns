@@ -4,19 +4,21 @@
 
 \begin{document}
 
-% Set background image
+% \background{opacity (0-1)}{path to background image}
 \background{0.3}{background.jpg}
 
 \doortitle{PhD4 is \emph{\LaTeX{} template}}
 
-% There is also a \singlentry command
-\doublentry{1}{1}{Jack}{Walton}{example-image}
-\doublentry{2}{1}{Hadi}{Alshammari}{example-image}
-\doublentry{1}{2}{Liam}{Dobson}{example-image}
-\doublentry{2}{2}{Can}{Evirgen}{example-image}
-\doublentry{1}{3}{Laura}{Wadkin}{example-image}
-\doublentry{2}{3}{Alex}{Hindle}{example-image}
-\doublentry{1}{4}{Rathish}{Ratnasingam}{example-image}
-\doublentry{2}{4}{Jack}{Kennedy}{example-image}
+% \student{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+% if "name 2" is empty typeset name on a single line
+% else, typeset "name 1" and "name 2" on separate lines
+\student{1}{1}{Boring name}{}{example-image}
+\student{2}{1}{Fun name}{Boring name}{example-image}
+\student{1}{2}{Fun name}{Boring name}{example-image}
+\student{2}{2}{Boring name}{}{example-image}
+\student{1}{3}{Boring name}{}{example-image}
+\student{2}{3}{Fun name}{Boring name}{example-image}
+\student{1}{4}{Fun name}{Boring name}{example-image}
+\student{2}{4}{Boring name}{}{example-image}
 
 \end{document}
