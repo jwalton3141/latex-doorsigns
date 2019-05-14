@@ -1,7 +1,7 @@
-% Set size to that of door sign
+% Set door sign size
 \usepackage[paperwidth=13.9cm, paperheight=11cm, top=0cm]{geometry}
 
-% Load that sweet MinionPro font if installed
+% Load that sweet MinionPro font (if installed)
 \IfFileExists{MinionPro.sty}{%
 	\usepackage{MinionPro}
 }
@@ -9,7 +9,9 @@
 \usepackage{tikz}
 \usepackage[pscoord]{eso-pic}
 \usepackage{xfp}
+\usepackage{etoolbox}
 
+% Stolen from Werner https://tex.stackexchange.com/a/24675/181010
 % \placetextbox{proportion of width}{proportion of height}{text}
 \newcommand{\placetextbox}[3]{% 
     \setbox0=\hbox{#3}
@@ -21,25 +23,32 @@
 % \doortitle{room number}
 \newcommand{\doortitle}[1]{\centering \Huge #1}
 
-% \singlentry{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name}{path to image}
-\newcommand{\singlentry}[4]{%
-	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace{0.7cm}\huge #3}
-	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
+% \student{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+% if "name 2" is empty typeset name on a single line
+% else, typeset "name 1" and "name 2" on separate lines
+\newcommand{\student}[5]{%
+    \ifstrempty{#4}{\singlename{#1}{#2}{#3}{#5}}{\doublename{#1}{#2}{#3}{#4}{#5}}
 }
 
-% \doublentry{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
-\newcommand{\doublentry}[5]{%
+% \singlename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name}{path to image}
+\newcommand{\singlename}[4]{%
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace{0.7cm}\huge #3}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
+}
+
+% \doublename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+\newcommand{\doublename}[5]{%
     \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
-	\placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
-	\placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
+    \placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
 }
 
-% \background{opacity of background 0-1}{path to background}
+% \background{opacity (0-1)}{path to background}
 \newcommand{\background}[2]{%
         \tikz[remember picture, overlay] \node[opacity=#1, inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth, height=\paperheight]{#2}};
 }
 
-% Column locations
+% Column locations (proportion of width)
 \newcommand{\column}[1]{%
 	\ifnum#1=1
 		0.095
@@ -49,7 +58,7 @@
 	\fi
 }
 
-% `Middle' row locations
+% Row locations (proportion of height)
 \newcommand{\midrow}[1]{%
 	\ifnum#1=1
 		0.8
