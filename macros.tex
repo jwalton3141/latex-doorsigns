@@ -24,58 +24,41 @@
 \newcommand{\doortitle}[1]{\centering \Huge #1}
 
 % \student{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+% if "name 2" is empty typeset name on a single line
+% else, typeset "name 1" and "name 2" on separate lines
 \newcommand{\student}[5]{%
-    % If one name is passed set on a single line. If two names passed set on separate lines
     \ifstrempty{#4}{\singlename{#1}{#2}{#3}{#5}}{\doublename{#1}{#2}{#3}{#4}{#5}}
 }
 
+% \singlename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name}{path to image}
 \newcommand{\singlename}[4]{%
-    % Add name to sign
-    \placetextbox{\namecol{#1}}{\midrow{#2}}{\huge #3}
-    % If given, add image to sign
-    \ifstrempty{#4}{}{\placetextbox{\imcol{#1}}{\midrow{#2}}{\addimage{#4}}}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace{0.7cm}\huge #3}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
 }
 
+% \doublename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
 \newcommand{\doublename}[5]{%
-    % Add first name to sign
-    \placetextbox{\namecol{#1}}{\hirow{#2}}{\huge #3}
-    % Add second name to sign
-    \placetextbox{\namecol{#1}}{\lowrow{#2}}{\normalsize #4}
-    % If given, add image to sign
-    \ifstrempty{#5}{}{\placetextbox{\imcol{#1}}{\midrow{#2}}{\addimage{#5}}}
+    \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
+    \placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
 }
-
-\newcommand{\addimage}[1]{%
-    \includegraphics[width=1.6cm, height=1.6cm]{#1}
-}
-
 
 % \background{opacity (0-1)}{path to background}
 \newcommand{\background}[2]{%
         \tikz[remember picture, overlay] \node[opacity=#1, inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth, height=\paperheight]{#2}};
 }
 
-% Locations of columns for names
-\newcommand{\namecol}[1]{%
+% Column locations (proportion of width)
+\newcommand{\column}[1]{%
 	\ifnum#1=1
-		0.2
+		0.095
 	\fi
 	\ifnum#1=2
-		0.6
+		0.595
 	\fi
 }
 
-% Locations of columns for images
-\newcommand{\imcol}[1]{%
-	\ifnum#1=1
-		0.05
-	\fi
-	\ifnum#1=2
-		0.835
-	\fi
-}
-
-% Row locations 
+% Row locations (proportion of height)
 \newcommand{\midrow}[1]{%
 	\ifnum#1=1
 		0.8
@@ -91,12 +74,12 @@
 	\fi
 }
 
-% Lower row locations
+% `Bottom' row locations
 \newcommand{\lowrow}[1]{%
     \fpeval{\midrow{#1}-0.025}
 }
 
-% Upper row locations
+% `Upper' row locations
 \newcommand{\hirow}[1]{%
     \fpeval{\midrow{#1}+0.025}
 }
