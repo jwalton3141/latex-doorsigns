@@ -16,12 +16,17 @@
 \newcommand{\placetextbox}[3]{% 
     \setbox0=\hbox{#3}
     \AddToShipoutPictureFG*{%
-        \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][l]{#3}}}%
+        \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][l]{#3}}}
   }
 }
 
 % \doortitle{room number}
 \newcommand{\doortitle}[1]{\centering \Huge #1}
+
+% \addimage{path to file}
+\newcommand{\addimage}[1]{%
+    \includegraphics[width=1.6cm, height=1.6cm]{#1}
+}
 
 % \student{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
 % if "name 2" is empty typeset name on a single line
@@ -33,14 +38,14 @@
 % \singlename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name}{path to image}
 \newcommand{\singlename}[4]{%
     \placetextbox{\column{#1}}{\midrow{#2}}{\hspace{0.7cm}\huge #3}
-    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#4}}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\addimage{#4}}
 }
 
 % \doublename{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
 \newcommand{\doublename}[5]{%
     \placetextbox{\column{#1}}{\hirow{#2}}{\hspace{0.7cm}\huge #3}
     \placetextbox{\column{#1}}{\lowrow{#2}}{\hspace{0.7cm}\normalsize #4}
-    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\includegraphics[width=1.6cm, height=1.6cm]{#5}}
+    \placetextbox{\column{#1}}{\midrow{#2}}{\hspace*{-1cm}\addimage{#5}}
 }
 
 % \background{opacity (0-1)}{path to background}
@@ -86,3 +91,4 @@
 
 % No page numbers thanks
 \pagenumbering{gobble}
+
