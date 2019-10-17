@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+
+% This project's macros are contained one directory up
+\input{../macros.tex}
+
+\begin{document}
+
+% \background{opacity (0-1)}{path to background image}
+\background{0.5}{kennedy.jpg}
+% \doortitle{Title / room number of door}
+\doortitle{PhD\emph{phwoooaaarrr}}
+
+% \student{column number (1 or 2)}{row number (1, 2, 3 or 4)}{name 1}{name 2}{path to image}
+% If "name 2" is left empty the name will be set on one central line,
+% otherwise "name 1" and "name 2" will be set on different lines and centred around
+% the image
+
+\begin{tabularx}{\paperwidth}{lXrr}
+	\centering
+	\studentleft{J. Walton}{}{walton.jpg} & \studentright{J. Kennedy}{}{kennedy.jpg} \\
+	\studentleft{L. Dobson}{}{kennedy.jpg} & \studentright{C. Evirgen}{}{kennedy.jpg} \\
+	\studentleft{L. Wadkin}{}{wadkin.jpg} & \studentright{A. Hindle}{}{hindle2.jpg} \\
+	\studentleft{R. Ratnasingam}{}{kennedy.jpg} &  \studentright{H. Alshammari}{}{kennedy.jpg} \\
+\end{tabularx}
+
+
+\end{document}
